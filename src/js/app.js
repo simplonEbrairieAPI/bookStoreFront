@@ -4,6 +4,7 @@ export default function App(props) {
 
   const appState = useSelector(state => state)
   const dispatch = useDispatch()
+  console.log('before')
   console.log(appState)
   console.log('toto')
 
@@ -14,7 +15,7 @@ export default function App(props) {
     // send action to the store
     dispatch({ type: 'APP_INIT' })
 
-    // console.log('useEffect on App is ttriggered')
+    console.log('useEffect on App is ttriggered')
     setTimeout(() => {
       dispatch({ type: 'APP_READY' })
     }, 2000)

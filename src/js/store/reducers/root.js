@@ -4,6 +4,9 @@
 //   init:false,
 //   loading:false,
 // }
+
+import { INIT, READY, RESET } from '../actions/actions'
+
 const initialState = {
   name: 'E-librarie',
   init: false,
@@ -15,17 +18,16 @@ const initialState = {
 //   payload:data
 // }
 
-const rootReducer = (state = initialState, action) => {
+export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case 'APP_INIT':
+    case INIT:
       return { ...state, loading: true };
-    case 'APP_READY':
+    case READY:
       return { ...state, init: true, loading: false };
-    case 'APP_RESET':
+    case RESET:
       return initialState
     default:
       return state
   }
 }
 // im the best :)
-export default rootReducer
