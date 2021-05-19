@@ -53,7 +53,7 @@ export default function SignIn() {
             type="password"
             required
           />
-          <button>Se connecter</button>
+          <button>Connect</button>
         </div>
       </form>
     </div>

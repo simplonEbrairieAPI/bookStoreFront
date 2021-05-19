@@ -37,19 +37,12 @@ export default function App(props) {
 
     console.log("dataResult -- user/me on going", dataResult, "-----", dataResult.data)
 
+    dispatch({ type: 'LOAD' })
+
     setTimeout(() => {
       dispatch({ type: 'APP_READY' })
     }, 2000)
 
-    // try {
-    //   const result = await api.get('users/me');
-    //   dispatch({ type: 'APP_READY' });
-    //   console.log(result);
-    // } catch (err) {
-    //   console.log('errrroororororororor', err)
-    //   // console.log(result)
-    //   dispatch({ type: 'APP_READY' })
-    // }
 
   }, [])
 
