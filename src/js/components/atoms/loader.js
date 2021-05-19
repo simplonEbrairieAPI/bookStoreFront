@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Loading from "../icons/loading.svg";
+import Loading from "../../icons/loading.svg";
 
 const LoaderStyle = styled.div`
   background-color: white;

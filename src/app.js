@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import api from './utils/api';
+import './app.css'
+
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { useHistory } from "react-router-dom";
+
 //routes 
 import Start from './js/pages/start'
 import Home from './js/pages/home'
 import UserProfile from './js/pages/userProfile';
 import Authentification from './js/pages/authentification'
 import Book from './js/pages/book'
-import Navbar from "/js/components/navbar"
+import Navbar from "/js/components/organisms/navbar"
 // import Sidebar from './js/components/Sidebar/Sidebar';
 // import PrivateRoute from './js/components/privateRoute'
-
-import Loader from './js/components/loader'
-import './app.css'
-
-import api from "./utils/api"
+import Loader from './js/components/atoms/loader'
 
 export const routes = {
   base: "/",
@@ -23,24 +23,20 @@ export const routes = {
   auth: "/authentification",
   book: "/book",
   profile: "/profile"
-
 };
 
-
 export default function App(props) {
-
   const appState = useSelector(state => state)
   const dispatch = useDispatch()
-  // console.log('before')
-  // console.log(appState)
-  // console.log('toto')
-  //when component is initialized
-  // when there is an update
+
   useEffect(async () => {
     // send action to the store
     dispatch({ type: 'APP_INIT' })
 
-    console.log('useEffect on App is triggered')
+    let dataResult = await api.get('user/me');
+
+    console.log("dataResult -- user/me on going", dataResult, "-----", dataResult.data)
+
     setTimeout(() => {
       dispatch({ type: 'APP_READY' })
     }, 2000)
@@ -53,10 +49,7 @@ export default function App(props) {
     //   console.log('errrroororororororor', err)
     //   // console.log(result)
     //   dispatch({ type: 'APP_READY' })
-
     // }
-
-
 
   }, [])
 

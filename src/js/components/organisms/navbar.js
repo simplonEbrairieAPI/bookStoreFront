@@ -1,6 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
+
+export default function Navbar(props) {
+
+  return (
+    <Nav>
+      <Left>
+        <Link className="item" to="/home">Home</Link>
+      </Left>
+      <Right>
+        <Link className="item" to="/authentification">Sign-in/Sign-up</Link>
+      </Right>
+    </Nav>
+  )
+}
 
 const Nav = styled.div`
 display:flex;
@@ -36,19 +50,3 @@ width:50%;
 justify-content: flex-end;
 margin-right: 20px;
 `
-
-
-export default function Navbar(props) {
-
-  return (
-    <Nav>
-      <Left>
-        <Link className="item" to="/home">Home</Link>
-      </Left>
-      <Right>
-        <Link className="item" to="/authentification">Sign-in/Sign-up</Link>
-      </Right>
-    </Nav>
-  )
-}
-
