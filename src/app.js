@@ -41,19 +41,18 @@ export default function App(props) {
       console.log(result);
     } catch (err) {
 
-      return <Redirect to='/somewhere' />;
-      console.log('errrroororororororor', err)
-      // console.log(result)
-      dispatch({ type: 'APP_READY' })
+      dispatch({ type: 'LOAD' })
+
+      setTimeout(() => {
+        dispatch({ type: 'APP_READY' })
+      }, 2000)
     }
 
+    dispatch({ type: 'LOAD' })
 
-
-    // if (dataResult.status == 200) {
-    //   dispatch({ type: 'READY' })
-    // } else{
-    //   console.log("ok connect")
-    // }
+    setTimeout(() => {
+      dispatch({ type: 'APP_READY' })
+    }, 2000)
 
 
   }, [])

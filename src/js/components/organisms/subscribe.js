@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from 'react-hook-form'
+import api from "../../../utils/api"
+// import validateEmail from "../../functions/validateEmail";
+// import usePasswordValidator from "../../functions/usePasswordValidor";
 
 export default function Subscribe() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+  // const [password, setPassword, passwordError] = usePasswordValidator({
+  //   min: 8,
+  //   max: 15
+  // });
+  // const [passwordRepeat, setPasswordRep] = useState("")
 
+  const [subscribing, setSubscribing] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    errorMessage: null,
+    isSubmitting: false,
+    passwordConfirm: false
+  })
 
   // useEffect(
   //   () => {
@@ -21,29 +35,59 @@ export default function Subscribe() {
   //   [email]
   // )
 
-  // const handleSubmit = async (e) => {
-  //   // const body = {
-  //   //   username: "coucou@gmail.com",
-  //   //   password: "qwertyuiop"
-  //   // }
+  // useEffect(
+  //   () => {
+  //     if (!subscribing.passwordRepeat || !subscribing.passwordRepeat != subscribing.password) {
+  //       const errorPassword = "Must be the same as the password"
+  //     } else {
+  //       const perfectMatch = "Perfect match!"
+  //       // if (password !== confirmPassword) {
+  //       //   setConfirmPasswordError("The passwords must match.");
+  //       // } else {
+  //       //   setConfirmPasswordError("");
+  //       // }
+  //     }
+  //   },
+  //   [subscribing.passwordRepeat, subscribing.password]
+  // );
 
-  //   e.preventDefault()
-  //   const result = await api.post('users', body)
-  //   console.log('result', result)
-
-  // }
-
-
-
-
-  const { register, errors, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data)
+  const handleChange = (e) => {
+    setSubscribing({ ...subscribing, [e.target.name]: e.target.value });
   }
 
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setSubscribing({
+        ...subscribing,
+        isSubmitting: true,
+        passwordConfirm: true
+      });
 
+      const result = await api.post('users', subscribing)
 
+      if (result.status === 201) {
+        return (
+          setSubscribing({
+            ...subscribing,
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            passwordRepeat: "",
+            errorMessage: null
+          })
+        );
+      }
+    }
+    catch (error) {
+      setSubscribing({
+        ...subscribing,
+        isSubmitting: false,
+        errorMessage: error
+      });
+    }
+  };
 
   return (
     <div className="create" >
@@ -52,60 +96,96 @@ export default function Subscribe() {
         1st time on the Librairie? <br />
         Subscribe!
       </p>
-      <form onSubmit={handleSubmit(onSubmit)} >
-        <input
-          placeholder="First name"
-          name="firstName"
-          label="FirstName*"
-          type="text"
-
-        />
-
-
-        {/* <div className="input">
+      <form
+        method="POST"
+        action="users"
+        onSubmit={handleSubmit}
+      >
+        <div className="input">
           <input
+            value={subscribing.firstName}
+            onChange={handleChange}
             placeholder="First name"
             name="firstName"
             label="FirstName*"
             type="text"
+            name="firstName"
           />
+          {/* {errors?.firstName?.type === "required" && <p>This field is required</p>}
 
+          {errors?.firstName?.type === "maxLength" && (
+            <p className="error_filled">First name cannot exceed 20 characters</p>
+          )}
+
+          {errors?.firstName?.type === "pattern" && (
+            <p className="error_filled">Alphabetical characters only</p>
+          )} */}
 
           <input
+            value={subscribing.lastName}
+            onChange={handleChange}
             placeholder="Name"
             name="lastName"
             label="Name *"
             type="text"
-
+            name="lastName"
+            required
           />
           <input
+            value={subscribing.email}
+            onChange={handleChange}
             placeholder="E-mail"
             name="email"
             label="E-mail *"
             type="email"
-
+            name="email"
+            required
           />
-          <input placeholder="Password"
+          <input
+            value={subscribing.password}
+            onChange={handleChange}
+            placeholder="Password"
+            name="password"
             label="Password *"
             name="password"
             type="password"
 
-          /> */}
-        {/* <div >Password must have at least 6 characteres</div> */}
-        {/* < input
+          />
+          {/* <div >Password must have at least 6 characteres</div> */}
+          {/* < input
             placeholder="Confirmer mot de passe"
             name="confirmePassword"
             type="password"
           />
-          
-          <div style={{ marginBottom: '30px' }}>
-            * required
-          </div>
-          <button>S’inscrire </button>
+          {/* {errors.password && <p>{errors.password.message}</p>} */}
+          {/* <div className="error">{passwordError}</div>
+          <div>* Password must have at least 6 characteres</div> */}
 
-        </div> */}
+          {/* <input
+            // value={confirmPassword}
+            // onChange={e => setConfirmPassword(e.target.value)}
+            placeholder="Confirm your password"
+            name="password_repeat"
+            type="password"
+            value={subscribing.passwordRepeat}
+          // onChange={(subscribing.passwordRepeat != subscribing.password) ? "Password doesn't match" : "Password is a match"}
+          />
+          <div>{
+            (!subscribing.passwordRepeat || !subscribing.passwordRepeat != subscribing.password) ?
+              ("Must be the same as the password" , subscribing.passwordConfirm = false)
+              : subscribing.passwordConfirm = true
+          }</div> */}
 
+          {/*{errors.password_repeat && <p>{errors.password_repeat.message}</p>} */}
 
+          {/* <div className="error">{confirmPasswordError}</div>
+          <div style={{ marginBottom: '30px' }}> */}
+          {/* * required
+          </div> */}
+          <div>{subscribing.errorMessage}</div>
+
+          <button type="submit" name="submitting" onClick={handleSubmit}>Subscribe</button>
+        </div>
       </form>
     </div >
   )

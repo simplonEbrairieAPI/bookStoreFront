@@ -4,9 +4,30 @@ import { useHistory } from "react-router-dom";
 
 
 export default function SignIn() {
+<<<<<<< Updated upstream
+=======
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const dispatch = useDispatch()
+  useEffect(
+    () => {
+      if (!email) {
+        setEmailError("");
+      } else {
+        if (validateEmail(email)) {
+          setEmailError("");
+        } else {
+          setEmailError("Please enter a valid email.");
+        }
+      }
+    },
+    [email]
+  )
+>>>>>>> Stashed changes
 
 
 
+<<<<<<< Updated upstream
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -43,6 +64,12 @@ export default function SignIn() {
 
     } catch (error) { console.log(error) }
 
+=======
+    e.preventDefault()
+    const result = await api.post('http://localhost:3011/user/authenticate', body)
+    console.log('result', result)
+    dispatch()
+>>>>>>> Stashed changes
   }
 
   function validateEmail(email) {
@@ -52,6 +79,7 @@ export default function SignIn() {
 
   return (
     <div className="login">
+<<<<<<< Updated upstream
       <h2>Connexion</h2>
       <p>Connect to your account</p>
       <form onSubmit={saveUserData}>
@@ -68,9 +96,32 @@ export default function SignIn() {
             type="password"
             onChange={(e) => setUserPassword(e.target.value)}
           />
-          <button>Se connecter</button>
+          <button>Connect</button>
         </div>
       </form>
+=======
+      <div className="left">
+        <h2>Connexion</h2>
+        <p>Connect to your account</p>
+        <form onSubmit={handleSubmit}>
+          <div className="input">
+            <input
+              placeholder="E-mail"
+              label="E-mail *"
+              type="email"
+              required
+            />
+            <input
+              placeholder="Password"
+              label="Password *"
+              type="password"
+              required
+            />
+            <button>Connect</button>
+          </div>
+        </form>
+      </div>
+>>>>>>> Stashed changes
     </div>
   )
 }
