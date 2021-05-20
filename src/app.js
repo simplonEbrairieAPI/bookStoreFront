@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Redirect } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import api from './utils/api';
 import './app.css'
@@ -31,25 +32,29 @@ export default function App(props) {
 
   useEffect(async () => {
     // send action to the store
-    dispatch({ type: 'APP_INIT' })
+    dispatch({ type: 'INIT' })
 
-    let dataResult = await api.get('user/me');
 
-    console.log("dataResult -- user/me on going", dataResult, "-----", dataResult.data)
+    try {
+      const result = await api.get('users/me');
+      dispatch({ type: 'APP_READY' });
+      console.log(result);
+    } catch (err) {
 
-    setTimeout(() => {
+      return <Redirect to='/somewhere' />;
+      console.log('errrroororororororor', err)
+      // console.log(result)
       dispatch({ type: 'APP_READY' })
-    }, 2000)
+    }
 
-    // try {
-    //   const result = await api.get('users/me');
-    //   dispatch({ type: 'APP_READY' });
-    //   console.log(result);
-    // } catch (err) {
-    //   console.log('errrroororororororor', err)
-    //   // console.log(result)
-    //   dispatch({ type: 'APP_READY' })
+
+
+    // if (dataResult.status == 200) {
+    //   dispatch({ type: 'READY' })
+    // } else{
+    //   console.log("ok connect")
     // }
+
 
   }, [])
 
