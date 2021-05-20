@@ -47,14 +47,6 @@ export default function App(props) {
         dispatch({ type: 'APP_READY' })
       }, 2000)
     }
-
-    dispatch({ type: 'LOAD' })
-
-    setTimeout(() => {
-      dispatch({ type: 'APP_READY' })
-    }, 2000)
-
-
   }, [])
 
   if (appState.loading) return <Loader />
