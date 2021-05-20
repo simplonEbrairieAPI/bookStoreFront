@@ -48,6 +48,11 @@ export default function App(props) {
       }, 2000)
     }
 
+    dispatch({ type: 'LOAD' })
+
+    setTimeout(() => {
+      dispatch({ type: 'APP_READY' })
+    }, 2000)
 
 
   }, [])

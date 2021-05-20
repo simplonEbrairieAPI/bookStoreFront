@@ -89,7 +89,6 @@ export default function Subscribe() {
     }
   };
 
-
   return (
     <div className="create" >
       <h2>Create an account</h2>
