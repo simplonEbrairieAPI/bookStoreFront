@@ -1,6 +1,27 @@
-
 import styled from "styled-components";
 import cx from 'classnames';
+
+export default function Button({
+  children,
+  outline,
+  curved,
+  small,
+  onClick,
+  className,
+  style,
+  props,
+}) {
+  let CName = cx(btn, className, {
+    [outline]: outline,
+    [curved]: curved,
+    [small]: small,
+  });
+  return (
+    <ButtonStyle className={CName} {...props} onClick={onClick} style={style}>
+      {children}
+    </ButtonStyle>
+  );
+}
 
 const ButtonStyle = styled.div`
 .btn {
@@ -95,29 +116,6 @@ const ButtonStyle = styled.div`
   }
 }
 `
-
-
-export default function Button({
-  children,
-  outline,
-  curved,
-  small,
-  onClick,
-  className,
-  style,
-  props,
-}) {
-  let CName = cx(btn, className, {
-    [outline]: outline,
-    [curved]: curved,
-    [small]: small,
-  });
-  return (
-    <ButtonStyle className={CName} {...props} onClick={onClick} style={style}>
-      {children}
-    </ButtonStyle>
-  );
-}
 
 // export function Button2({
 //   children,
