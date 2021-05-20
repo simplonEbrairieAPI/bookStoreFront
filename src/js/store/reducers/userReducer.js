@@ -1,9 +1,11 @@
 import { SIGN_IN, LOAD, LOGOUT } from '../actions/userActions';
 
 const initialState = {
-  userId: null,
+  user: null,
   isAuthenticated: false,
-  userName: null
+  userFirstName: null,
+  userLastName: null,
+  userEmail: null
 }
 
 export default function userReducer(state = initialState, action) {
@@ -13,20 +15,22 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        // userName:,
+        userFirstName: action.payload.firstName,
+        userLastName: action.payload.lastName,
+        userEmailName: action.payload.email,
+
+
         //  userId: 
       };
     case LOAD:
       return {
         ...state,
         isAuthenticated: true,
-        userId: action.payload
       }
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        // userId: null
       };
 
     default:

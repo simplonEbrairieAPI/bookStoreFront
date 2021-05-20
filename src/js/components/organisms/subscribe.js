@@ -20,37 +20,6 @@ export default function Subscribe() {
     passwordConfirm: false
   })
 
-  // useEffect(
-  //   () => {
-  //     if (!email) {
-  //       setEmailError("");
-  //     } else {
-  //       if (validateEmail(email)) {
-  //         setEmailError("");
-  //       } else {
-  //         setEmailError("Please enter a valid email.");
-  //       }
-  //     }
-  //   },
-  //   [email]
-  // )
-
-  // useEffect(
-  //   () => {
-  //     if (!subscribing.passwordRepeat || !subscribing.passwordRepeat != subscribing.password) {
-  //       const errorPassword = "Must be the same as the password"
-  //     } else {
-  //       const perfectMatch = "Perfect match!"
-  //       // if (password !== confirmPassword) {
-  //       //   setConfirmPasswordError("The passwords must match.");
-  //       // } else {
-  //       //   setConfirmPasswordError("");
-  //       // }
-  //     }
-  //   },
-  //   [subscribing.passwordRepeat, subscribing.password]
-  // );
-
   const handleChange = (e) => {
     setSubscribing({ ...subscribing, [e.target.name]: e.target.value });
   }
@@ -151,37 +120,7 @@ export default function Subscribe() {
             type="password"
 
           />
-          {/* <div >Password must have at least 6 characteres</div> */}
-          {/* < input
-            placeholder="Confirmer mot de passe"
-            name="confirmePassword"
-            type="password"
-          />
-          {/* {errors.password && <p>{errors.password.message}</p>} */}
-          {/* <div className="error">{passwordError}</div>
-          <div>* Password must have at least 6 characteres</div> */}
 
-          {/* <input
-            // value={confirmPassword}
-            // onChange={e => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
-            name="password_repeat"
-            type="password"
-            value={subscribing.passwordRepeat}
-          // onChange={(subscribing.passwordRepeat != subscribing.password) ? "Password doesn't match" : "Password is a match"}
-          />
-          <div>{
-            (!subscribing.passwordRepeat || !subscribing.passwordRepeat != subscribing.password) ?
-              ("Must be the same as the password" , subscribing.passwordConfirm = false)
-              : subscribing.passwordConfirm = true
-          }</div> */}
-
-          {/*{errors.password_repeat && <p>{errors.password_repeat.message}</p>} */}
-
-          {/* <div className="error">{confirmPasswordError}</div>
-          <div style={{ marginBottom: '30px' }}> */}
-          {/* * required
-          </div> */}
           <div>{subscribing.errorMessage}</div>
 
           <button type="submit" name="submitting" onClick={handleSubmit}>Subscribe</button>
