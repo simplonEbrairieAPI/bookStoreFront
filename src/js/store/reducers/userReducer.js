@@ -2,7 +2,8 @@ import { SIGN_IN, LOAD, LOGOUT } from '../actions/userActions';
 
 const initialState = {
   userId: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  userName: null
 }
 
 export default function userReducer(state = initialState, action) {
@@ -12,12 +13,14 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        // userId: action.cookie.userId
+        // userName:,
+        //  userId: 
       };
     case LOAD:
       return {
         ...state,
         isAuthenticated: true,
+        userId: action.payload
       }
     case LOGOUT:
       return {

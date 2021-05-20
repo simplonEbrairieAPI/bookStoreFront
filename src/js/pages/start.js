@@ -5,7 +5,10 @@ import styled from "styled-components";
 
 const StartWrap = styled.div`
 font-family: "Nunito";
-background-color: #D2B48C;
+// background-color: #D2B48C;
+background-image: url("https://static.vecteezy.com/ti/photos-gratuite/p1/1416235-timelapse-of-starry-sky-gratuit-photo.jpeg");
+background-repeat: no-repeat;
+background-size: cover;
 position: fixed;
 top: 0;
 right: 0;
@@ -26,18 +29,40 @@ animation-duration: 0.5s;
 }
 
 .startLogo {
+  animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  text-shadow: 2px 2px 5px pink;
   position: absolute;
-  top: 50%;
+  font-size:45px;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .startText {
+  animation: text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  font-size:20px;
+  font-weight:bold;
+  text-shadow: 1px 1px 3px pink;
   position: absolute;
-  top: 85%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+// animation
+
+@keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(12px);
+            filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+
 `
 
 const Start = props => {
@@ -60,7 +85,7 @@ const Start = props => {
       }
     >
       <h1 className="startLogo">Welcome to the Library Store</h1>
-      <span className="startText">Tap Screen to Start</span>
+      <span className="startText">Tap Screen to Begin</span>
     </ StartWrap>
   );
 };

@@ -26,7 +26,7 @@ const ContainerStyle = styled.div`
       display: grid;
       justify-content: center;
       grid-template-columns: repeat(2, 1fr);
-      margin: 113px 10%;
+      margin: 113px 0%;
       font-family:"Nunito";
 
       h2 {
@@ -43,13 +43,16 @@ const ContainerStyle = styled.div`
 
       
       .login {
-        padding-right: 20%;
-      border-right: 1px solid #7f7f7f;
+        border-right: 1px solid #7f7f7f;
 }
 
-      .create{
-        padding-left: 20%;
-       
+.left{
+  width: 70%;
+  margin: auto;
+}
+  .create{
+    width: 70%;
+    margin: auto; 
 }
 
 .error_filled{
@@ -63,7 +66,7 @@ const ContainerStyle = styled.div`
       .input{
         display:flex;
       flex-direction: column;
-
+align-items: center;
 }
       input {
       display: block;
@@ -82,6 +85,7 @@ const ContainerStyle = styled.div`
 }
 
       button {
+        width:50%;
         margin: 0.8em;
       padding: 1em;
       border: 1px solid #e4e6e8;
