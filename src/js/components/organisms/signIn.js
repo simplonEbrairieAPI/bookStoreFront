@@ -68,7 +68,7 @@ export default function SignIn() {
             type="password"
             onChange={(e) => setUserPassword(e.target.value)}
           />
-          <button>Se connecter</button>
+          <button>Connect</button>
         </div>
       </form>
     </div>

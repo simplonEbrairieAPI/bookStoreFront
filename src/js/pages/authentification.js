@@ -39,8 +39,9 @@ const ContainerStyle = styled.div`
         font-size: 20px;
       color: secondary;
       text-align: center;
-}
+      }
 
+      
       .login {
         padding-right: 20%;
       border-right: 1px solid #7f7f7f;
@@ -51,6 +52,14 @@ const ContainerStyle = styled.div`
        
 }
 
+.error_filled{
+  color: #bf1650;
+}
+
+.error_filled::before {
+  display: inline;
+  content: "⚠ ";
+}
       .input{
         display:flex;
       flex-direction: column;
@@ -85,4 +94,11 @@ const ContainerStyle = styled.div`
         background-color: palevioletred;
       color: white;
 }
+.error {
+  color: tomato;
+  margin-bottom: 10px;
+  height: 8px;
+  font-size: 13px;
+}
+
 `
