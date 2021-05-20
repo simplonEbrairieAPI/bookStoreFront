@@ -1,33 +1,48 @@
 import React, { useState, useEffect } from "react";
 import api from '../../../utils/api'
+import { useHistory } from "react-router-dom";
+
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  useEffect(
-    () => {
-      if (!email) {
-        setEmailError("");
-      } else {
-        if (validateEmail(email)) {
-          setEmailError("");
-        } else {
-          setEmailError("Please enter a valid email.");
-        }
-      }
-    },
-    [email]
-  )
 
-  const handleSubmit = async (e) => {
-    const body = {
-      username: "coucou1@gmail.com",
-      password: "coucou1"
+
+
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const saveUserData = (e) => {
+    e.preventDefault()
+
+    if (!userEmail.trim()) {
+      console.log('mail vide')
+      return
+    }
+    if (!userPassword.trim()) {
+      console.log('password vide')
+      return
     }
 
-    e.preventDefault()
-    const result = await api.post('users/authentificate', body)
-    console.log('result', result)
+    login()
+
+  }
+
+
+  const history = useHistory();
+
+  const login = async (e) => {
+    const user = {
+      email: userEmail,
+      password: userPassword
+    }
+
+    try {
+      const result = await api.post('http://localhost:3011/user/authenticate', user)
+      if (result.data.success === true) {
+        history.push("/home")
+      }
+
+    } catch (error) { console.log(error) }
+
   }
 
   function validateEmail(email) {
@@ -39,19 +54,19 @@ export default function SignIn() {
     <div className="login">
       <h2>Connexion</h2>
       <p>Connect to your account</p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={saveUserData}>
         <div className="input">
           <input
             placeholder="E-mail"
             label="E-mail *"
             type="email"
-            required
+            onChange={(e) => setUserEmail(e.target.value)}
           />
           <input
             placeholder="Password"
             label="Password *"
             type="password"
-            required
+            onChange={(e) => setUserPassword(e.target.value)}
           />
           <button>Se connecter</button>
         </div>
