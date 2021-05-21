@@ -3,11 +3,11 @@ import api from '../../../utils/api'
 import { useDispatch } from 'react-redux'
 import { useHistory } from "react-router-dom";
 
-
 export default function SignIn() {
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch()
   const saveUserData = (e) => {
@@ -33,12 +33,24 @@ export default function SignIn() {
     }
 
     try {
-      const result = await api.post('http://localhost:3011/user/authenticate', user)
+      const result = await api.post('user/authenticate', user)
       if (result.data.success === true) {
         dispatch({ type: "SIGN_IN", payload: result.data.user })
         history.push("/home")
       }
-    } catch (error) { console.log(error) }
+      else if (result.data.success === false) {
+        // Personnal message
+        // return setMessage("incorrect data, please correct or register")
+
+        //  response of the back
+        return setMessage(result.data.error)
+
+      }
+
+    } catch (error) {
+      // dispatch({ type: "LOGOUT" })
+      console.log(error)
+    }
   }
 
   return (
@@ -48,6 +60,7 @@ export default function SignIn() {
         <p>Connect to your account</p>
         <form onSubmit={saveUserData}>
           <div className="input">
+
             <input
               placeholder="E-mail"
               label="E-mail *"
@@ -60,6 +73,7 @@ export default function SignIn() {
               type="password"
               onChange={(e) => setUserPassword(e.target.value)}
             />
+            {message}
             <button>Se connecter</button>
           </div>
         </form>
