@@ -13,7 +13,7 @@ export default function appReducer(state = initialState, action) {
     case READY:
       return { ...state, init: true, loading: false };
     case RESET:
-      return initialState
+      return state
     default:
       return state
   }
