@@ -1,17 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
+import { useSelector } from 'react-redux'
 
 export default function Navbar(props) {
+
+  const appState = useSelector(state => state)
 
   return (
     <Nav>
       <Left>
         <Link className="item" to="/home">Home</Link>
       </Left>
-      <Right>
-        <Link className="item" to="/authentification">Sign-in/Sign-up</Link>
-      </Right>
+
+      {
+        appState.user.isAuthenticated
+          ? <Right>
+            <Link className="item" to="/profile">
+              profil
+              {appState.user.userFirstName}
+            </Link>
+          </Right>
+          : <Right>
+            <Link className="item" to="/authentification">
+              Sign-in/Sign-up
+            </Link>
+          </Right>
+      }
     </Nav>
   )
 }

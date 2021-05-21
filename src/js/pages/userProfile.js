@@ -1,10 +1,14 @@
 import React from 'react'
+// import api from '../../../utils/api'
+// import { useHistory } from "react-router-dom";
+
 
 export function Userprofile(props) {
 
   useEffect(() => {
     document.title = "UserProfile";
-    !localStorage.getItem('beltoken') && window.location.replace('/authentification');
+
+
   }, []);
 
   return (

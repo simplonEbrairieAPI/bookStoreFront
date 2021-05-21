@@ -12,9 +12,8 @@ import Start from './js/pages/start'
 import Home from './js/pages/home'
 import UserProfile from './js/pages/userProfile';
 import Authentification from './js/pages/authentification'
-import Book from './js/pages/book'
+import Book from './js/components/organisms/books'
 import Navbar from "/js/components/organisms/navbar"
-// import Sidebar from './js/components/Sidebar/Sidebar';
 // import PrivateRoute from './js/components/privateRoute'
 import Loader from './js/components/atoms/loader'
 
@@ -27,52 +26,41 @@ export const routes = {
 };
 
 export default function App(props) {
-  const appState = useSelector(state => state)
+  const appState = useSelector(state => state.app)
   const dispatch = useDispatch()
 
   useEffect(async () => {
-    // send action to the store
-    dispatch({ type: 'INIT' })
-
+    dispatch({ type: 'APP_INIT' })
+    dispatch({ type: 'LOAD' })
 
     try {
-      const result = await api.get('users/me');
-      dispatch({ type: 'APP_READY' });
-      console.log(result);
+      const result = await api.get('user/me');
+      dispatch({ type: 'SIGN_IN', payload: result.data.user })
+
     } catch (err) {
-
-      dispatch({ type: 'LOAD' })
-
-      setTimeout(() => {
-        dispatch({ type: 'APP_READY' })
-      }, 2000)
+      // dispatch({ type: 'LOGOUT' })
+      console.log("erreur init user/me", err)
     }
+    setTimeout(() => {
+      dispatch({ type: 'APP_READY' })
+    }, 1000)
   }, [])
 
   if (appState.loading) return <Loader />
+  console.log("app -- state", appState)
 
   return (
-
     <>
       <Router>
         < Navbar />
-        {/* < Sidebar /> */}
-
         <Switch>
-          <Route exact path={routes.auth} component={Authentification} />
-
-          {/* http://localhost1234 */}
-          {/* <Layout> */}
+          <Route path={routes.auth} component={Authentification} exact />
           <Route path={routes.base} component={Start} exact />
           <Route path={routes.home} component={Home} exact />
           <Route path={routes.book} component={Book} exact />
           <Route path={routes.profile} component={UserProfile} exact />
-
-          {/* </Layout> */}
-
         </Switch>
       </Router>
     </>
   )
 }
-
